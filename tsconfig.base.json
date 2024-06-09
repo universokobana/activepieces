@@ -290,6 +290,9 @@
       "@activepieces/piece-krisp-call": [
         "packages/pieces/community/krisp-call/src/index.ts"
       ],
+      "@activepieces/piece-kobana": [
+        "packages/pieces/community/kobana/src/index.ts"
+      ],
       "@activepieces/piece-lead-connector": [
         "packages/pieces/community/lead-connector/src/index.ts"
       ],
