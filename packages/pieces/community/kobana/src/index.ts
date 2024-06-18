@@ -1,5 +1,4 @@
 import { createPiece, PieceAuth } from '@activepieces/pieces-framework';
-import { visualizarBoleto } from './lib/actions/visualizar-boleto';
 import { bank_billet_blocked } from './lib/triggers/bank_billet_blocked';
 import { bank_billet_canceled } from './lib/triggers/bank_billet_canceled';
 import { bank_billet_created } from './lib/triggers/bank_billet_created';
@@ -27,7 +26,7 @@ export const kobana = createPiece({
   minimumSupportedRelease: '0.20.0',
   logoUrl: 'https://cdn.activepieces.com/pieces/kobana.png',
   authors: [],
-  actions: [visualizarBoleto],
+  actions: [],
   triggers: [
     bank_billet_blocked,
     bank_billet_canceled,
