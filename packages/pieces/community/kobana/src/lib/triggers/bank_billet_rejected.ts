@@ -5,7 +5,7 @@ import { bankBilletFactory } from '../common/factories/bank_billet_factory';
 
 const event_code = 'bank_billet.rejected';
 
-export const bank_billet_created = createTrigger({
+export const bank_billet_rejected = createTrigger({
   auth: kobanaAuth,
   name: 'bank_billet_rejected',
   displayName: `Boleto Rejeitado (${event_code})`,

@@ -5,7 +5,7 @@ import { bankBilletFactory } from '../common/factories/bank_billet_factory';
 
 const event_code = 'bank_billet.overdue';
 
-export const bank_billet_created = createTrigger({
+export const bank_billet_overdue = createTrigger({
   auth: kobanaAuth,
   name: 'bank_billet_overdue',
   displayName: `Boleto Vencido (${event_code})`,

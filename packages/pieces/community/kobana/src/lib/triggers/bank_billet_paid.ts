@@ -5,7 +5,7 @@ import { bankBilletFactory } from '../common/factories/bank_billet_factory';
 
 const event_code = 'bank_billet.paid';
 
-export const bank_billet_created = createTrigger({
+export const bank_billet_paid = createTrigger({
   auth: kobanaAuth,
   name: 'bank_billet_paid',
   displayName: `Boleto Pago (${event_code})`,
