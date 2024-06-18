@@ -3,13 +3,13 @@ import { kobanaAuth } from '../../';
 import { kobanaCommon, Bundle, KobanaWebhook } from '../common';
 import { bankBilletFactory } from '../common/factories/bank_billet_factory';
 
-const event_code = 'bank_billet.created';
+const event_code = 'bank_billet.generated';
 
 export const bank_billet_created = createTrigger({
   auth: kobanaAuth,
-  name: 'bank_billet_created',
-  displayName: `Boleto Criado (${event_code})`,
-  description: 'Toda vez que um boleto é criado.',
+  name: 'bank_billet_generated',
+  displayName: `PDF de boleto gerado (${event_code})`,
+  description: 'Toda vez que o PDF de um boleto é gerado.',
   props: {},
   sampleData: {
     bankBilletFactory,
@@ -28,9 +28,7 @@ export const bank_billet_created = createTrigger({
     });
   },
   async onDisable(context) {
-    const response = await context.store?.get<KobanaWebhook>(
-      event_code
-    );
+    const response = await context.store?.get<KobanaWebhook>(event_code);
     if (response === null || response === undefined) {
       throw Error('Context store was null');
     }
