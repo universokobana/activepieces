@@ -5,45 +5,49 @@ import {
   httpClient,
 } from '@activepieces/pieces-common';
 
+import { kobanaHost } from '../../index';
+
 export interface KobanaWebhook {
   webhookId: string;
 }
 
 export interface Bundle {
-  targetUrl: string,
-  personalToken: string,
+  targetUrl: string;
+  personalToken: string;
 }
 
+const api_host =
+  process.env['KOBANA_API_HOST'] || 'http://localhost:5000/api/v1/';
+
 export const kobanaCommon = {
-  baseUrl: 'https://api-sandbox.kobana.com.br/v1/',
+  baseUrl: api_host,
 
   subscribeHook: async (bundle: Bundle, event_code: string) => {
     const data = {
       url: bundle.targetUrl,
       events: [event_code],
-      concurrency_limit: 10
+      concurrency_limit: 10,
     };
-    
 
     const request: HttpRequest = {
       method: HttpMethod.POST,
-      url: `${kobanaCommon.baseUrl}/webhooks`,
+      url: api_host + 'webhooks',
       headers: {
         Authorization: kobanaCommon.authorizationHeader(bundle.personalToken),
       },
-      body: data
+      body: data,
     };
     const response = await httpClient.sendRequest(request);
     return response.body;
   },
 
-  unsubscribeHook: async(bundle: Bundle, webhookId: string) => {
+  unsubscribeHook: async (bundle: Bundle, webhookId: string) => {
     const request: HttpRequest = {
       method: HttpMethod.DELETE,
-      url: `${kobanaCommon.baseUrl}webhooks/${webhookId}`,
+      url: `${kobanaCommon.baseUrl}/webhooks/${webhookId}`,
       headers: {
         Authorization: kobanaCommon.authorizationHeader(bundle.personalToken),
-      }
+      },
     };
     await httpClient.sendRequest(request);
   },
@@ -51,8 +55,8 @@ export const kobanaCommon = {
   bundleFromContext: (context: any) => {
     return {
       targetUrl: context.webhookUrl,
-      personalToken: context.auth.access_token
-    } as Bundle
+      personalToken: context.auth.access_token,
+    } as Bundle;
   },
 
   parseHook: (response: any) => {
@@ -69,5 +73,7 @@ export const kobanaCommon = {
     return final;
   },
 
-  authorizationHeader: (personalToken: string) => {return `Bearer ${personalToken}`},
-}
+  authorizationHeader: (personalToken: string) => {
+    return `Bearer ${personalToken}`;
+  },
+};
